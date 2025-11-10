@@ -115,7 +115,7 @@ This section details the main issues encountered during development, as required
 
 ## 4. Conclusions
 
-At least three conclusions are required for the report.
+
 
 1.  Object-Oriented design enabled reusability. The project's main success was using the *same* `LinearRegression.java` class to handle both multiple (4-feature) and simple (1-feature) regression without modification. The logic was successfully encapsulated.
 2.  Data pre-processing is critical for convergence. The model was non-functional without first scaling (normalizing) both `X` and `y` data. Z-Score scaling was essential for Gradient Descent to converge correctly.
