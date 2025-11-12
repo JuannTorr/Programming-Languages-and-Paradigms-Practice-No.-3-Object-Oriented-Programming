@@ -1,15 +1,3 @@
-
-/**
- * Implementa un modelo de Regresión Lineal Múltiple desde cero.
- * Sigue los requisitos de la Práctica 3 de PLP (OOP).
- * * Esta clase incluye:
- * - Atributos 'weights' y 'bias'.
- * - Método 'fit()' para entrenar (usando Gradient Descent).
- * - Método 'predict()' para predecir.
- * - Método 'score()' para evaluar (usando MSE).
- * - Lógica interna para 'data_scaling()' (Z-Score) 
- * para las features (X) y el target (y).
- */
 public class LinearRegression {
 
     // --- Atributos Requeridos ---
@@ -27,12 +15,8 @@ public class LinearRegression {
     private double learningRate;
     private int epochs;
 
-    /**
-     * Constructor para inicializar el modelo.
-     * @param numFeatures El número de variables independientes (columnas en X).
-     * @param learningRate Tasa de aprendizaje para Gradient Descent.
-     * @param epochs Número de iteraciones para el entrenamiento.
-     */
+    //Constructor para inicializar el modelo.
+
     public LinearRegression(int numFeatures, double learningRate, int epochs) {
         this.numFeatures = numFeatures;
         this.learningRate = learningRate;
@@ -52,12 +36,7 @@ public class LinearRegression {
         this.y_stdDev = 1.0; 
     }
 
-    /**
-     * Entrena el modelo (fit) usando Gradient Descent.
-     * Escala internamente los datos X e y.
-     * @param X_train Matriz de features (datos de entrada).
-     * @param y_train Arreglo de target (datos de salida).
-     */
+    //Escala internamente los datos X e y.
     public void fit(double[][] X_train, double[] y_train) {
         System.out.println("Entrenando modelo...");
         int numSamples = X_train.length;
@@ -79,7 +58,7 @@ public class LinearRegression {
         }
         System.out.println("Datos de entrenamiento escalados (X e y).");
 
-        // --- 3. Implementación de Gradient Descent ---
+        // 3. Implementación de Gradient Descent 
         System.out.println("Iniciando Gradient Descent...");
         for (int epoch = 0; epoch < this.epochs; epoch++) {
             
@@ -122,12 +101,7 @@ public class LinearRegression {
         System.out.println("¡Entrenamiento completado!");
     }
 
-    /**
-     * Predice los valores de salida para un nuevo conjunto de datos X.
-     * Escala X_test y des-escala la predicción final.
-     * @param X_test Matriz de features (datos de prueba).
-     * @return Arreglo de predicciones (y_hat) en la escala original.
-     */
+    //Predice los valores de salida para un nuevo conjunto de datos X.
     public double[] predict(double[][] X_test) {
         System.out.println("Prediciendo...");
         
@@ -140,7 +114,6 @@ public class LinearRegression {
             predictions_scaled[i] = predictInternal(X_test_scaled[i]);
         }
         
-        // 3. Des-escalar las predicciones
         // y_real = (y_scaled * y_stdDev) + y_mean
         double[] predictions_unscaled = new double[X_test.length];
         for (int i = 0; i < X_test.length; i++) {
@@ -150,13 +123,8 @@ public class LinearRegression {
         return predictions_unscaled; 
     }
 
-    /**
-     * Calcula el error de las predicciones (score) usando el 
-     * Error Cuadrático Medio (MSE).
-     * @param y_true Valores reales.
-     * @param y_pred Valores predichos (resultado de predict).
-     * @return El valor del error (MSE).
-     */
+    //Calcula el error de las predicciones (score) usando el error Cuadrático Medio (MSE).
+   
     public double score(double[] y_true, double[] y_pred) {
         System.out.println("Calculando score (Error Cuadrático Medio - MSE)...");
 
@@ -178,31 +146,19 @@ public class LinearRegression {
         return sumSquaredError / n;
     }
     
-    // --- Métodos Getters (Requeridos por la práctica) ---
-    
-    /**
-     * Retorna los pesos (weights) del modelo.
-     * Nota: Estos pesos están en la escala "escalada".
-     */
+    //Métodos Getters (Requeridos por la práctica) 
     public double[] getWeights() { 
         return weights; 
     }
 
-    /**
-     * Retorna el sesgo (bias) del modelo.
-     * Nota: Este bias está en la escala "escalada".
-     */
+    //Retorna el sesgo (bias) del modelo.
+     
     public double getBias() { 
         return bias; 
     }
 
 
-    // --- MÉTODOS PRIVADOS AUXILIARES ---
-
-    /**
-     * Método interno para calcular la predicción ESCALADA de UNA sola fila.
-     * (y_hat_scaled = (x_scaled * weights) + bias_scaled)
-     */
+    //MÉTODOS PRIVADOS AUXILIARES
     private double predictInternal(double[] x_scaled_row) {
         double prediction = this.bias;
         for (int j = 0; j < this.numFeatures; j++) {
@@ -211,10 +167,8 @@ public class LinearRegression {
         return prediction;
     }
 
-    /**
-     * Escala la matriz de entrenamiento X (scaleFeatures).
-     * Calcula y *guarda* la media y stdDev de cada columna.
-     */
+    //Escala la matriz de entrenamiento X (scaleFeatures) y Calcula y *guarda* la media y stdDev de cada columna.
+     
     private double[][] scaleFeatures(double[][] X) {
         int numRows = X.length;
         int numCols = this.numFeatures;
@@ -236,10 +190,8 @@ public class LinearRegression {
         return X_scaled;
     }
 
-    /**
-     * Escala la matriz de prueba X_test (scaleTestFeatures).
-     * Usa la media y stdDev YA CALCULADAS durante el entrenamiento.
-     */
+    //Escala la matriz de prueba X_test (scaleTestFeatures).
+  
     private double[][] scaleTestFeatures(double[][] X_test) {
         int numRows = X_test.length;
         int numCols = this.numFeatures;
@@ -264,9 +216,8 @@ public class LinearRegression {
         return X_scaled;
     }
     
-    /**
-     * Helper para extraer una sola columna de una matriz 2D.
-     */
+    // Helper para extraer una sola columna de una matriz 2D.
+    
     private double[] getColumn(double[][] matrix, int colIndex) {
         double[] column = new double[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
@@ -275,9 +226,8 @@ public class LinearRegression {
         return column;
     }
 
-    /**
-     * Calcula la media (promedio) de un arreglo.
-     */
+    //Calcula la media (promedio) de un arreglo.
+     
     private double calculateMean(double[] data) {
         double sum = 0.0;
         for (double val : data) {
@@ -286,9 +236,7 @@ public class LinearRegression {
         return sum / data.length;
     }
 
-    /**
-     * Calcula la desviación estándar de un arreglo.
-     */
+    //Calcula la desviación estándar de un arreglo.
     private double calculateStdDev(double[] data, double mean) {
         double sumSquaredDiff = 0.0;
         for (double val : data) {
