@@ -1,15 +1,9 @@
 import java.util.Arrays;
-
-/**
- * Clase principal para probar el caso de Regresión Simple
- * (Datos de Venta de Helados).
- * ¡Utiliza la MISMA clase LinearRegression.java!
- */
 public class Main_Simple {
 
     public static void main(String[] args) {
         
-        // --- 1. Datos de entrenamiento (Ice_cream_selling_data.csv) ---
+        // 1. Datos de entrenamiento (Ice_cream_selling_data.csv) 
         
         // Datos X (Temperature)
         double[][] X_train = {
@@ -39,11 +33,10 @@ public class Main_Simple {
             110.0
         };
         
-        // --- 2. Definir Hiperparámetros ---
+        //2. Definir Hiperparámetros 
         
         int numFeatures = X_train[0].length; 
-        
-        // (CORRECCIÓN AQUÍ)
+
         // Reducimos la tasa de aprendizaje para evitar que el Bias "explote"
         double learningRate = 0.001;
         // Aumentamos las épocas para que tenga tiempo de aprender más lento
@@ -53,18 +46,17 @@ public class Main_Simple {
         System.out.println("Iniciando Práctica 3: Regresión Lineal SIMPLE");
         System.out.println("Features: " + numFeatures + " | Epochs: " + epochs + " | LR: " + learningRate);
         
-        // --- 3. Crear y Entrenar ---
+        //3. Crear y Entrenar 
         LinearRegression mlr_simple = new LinearRegression(numFeatures, learningRate, epochs);
         
         mlr_simple.fit(X_train, y_train);
         
-        // --- 4. Resultados del Modelo ---
+        // 4. Resultados del Modelo 
         System.out.println("--- Resultados del Modelo (Simple) ---");
         System.out.println("Weight (Pendiente): " + Arrays.toString(mlr_simple.getWeights()));
         System.out.println("Bias (Intercepto): " + mlr_simple.getBias());
 
-        // --- 5. Probar Predicción ---
-        // ¿Cuánto venderemos si la temperatura es 25°C?
+        // 5. Probar Predicción 
         double[][] X_test = {
             {25.0} 
         };
@@ -78,7 +70,7 @@ public class Main_Simple {
 
         System.out.println("Predicción para 25°C: " + y_hat[0] + " (Real=" + y_test[0] + ")");
         
-        // --- 6. Calcular el Score ---
+        //6. Calcular el Score 
         double mse = mlr_simple.score(y_test, y_hat);
         System.out.println("Score (MSE) del modelo simple: " + mse);
     }
