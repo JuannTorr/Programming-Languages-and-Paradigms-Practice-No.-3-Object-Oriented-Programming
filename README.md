@@ -12,7 +12,7 @@ Authors:
 * Alejandro Restrepo Osorio
 
 Links:
-* YouTube Video: 
+* YouTube Video: https://youtu.be/pe3FPjSe-u0
 * GitHub Repository: https://github.com/JuannTorr/Programming-Languages-and-Paradigms-Practice-No.-3-Object-Oriented-Programming
 ---
 
